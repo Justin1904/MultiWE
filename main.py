@@ -8,7 +8,6 @@ import torch.nn as nn
 from Models import SkipGram
 from Trainer import EmbeddingTrainer, Logger
 from datautils import load_unsup_dataset, extract_context_pairs, avg_collapse, custom_collate, load_emb
-from constants import CACHE_GLOVE_PATH, DATA_PATH, GLOVE_PATH, CACHE_DATA_PATH
 from torch.utils.data import DataLoader
 from torch.optim import Adam
 from subprocess import check_call
@@ -19,6 +18,8 @@ from argparse import ArgumentParser
 #VISUAL_FIELD = "CMU_MOSI_OpenFace"
 #ACOUSTIC_FIELD = "CMU_MOSI_openSMILE_IS09"
 #TEXT_FIELD = "CMU_MOSI_ModifiedTimestampedWords"
+CACHE_GLOVE_PATH = "./data/glove_cache.pt"
+CACHE_DATA_PATH = "./data/data_cache.pt"
 TEXT_FIELD = "CMU_MOSEI_TimestampedWords"
 ACOUSTIC_FIELD = "CMU_MOSEI_openSMILE_IS09"
 VISUAL_FIELD = "CMU_MOSEI_VisualOpenFace2"
@@ -55,8 +56,7 @@ if __name__ == "__main__":
         dataset, w2i = torch.load(CACHE_DATA_PATH)
         w2i = defaultdict(lambda: UNK, w2i)
     else:
-        dataset, w2i = load_unsup_dataset(TEXT_FIELD, VISUAL_FIELD, ACOUSTIC_FIELD, avg_collapse)
-        torch.save((dataset, dict(w2i)), CACHE_DATA_PATH)
+        print("The data file does not exist, please download and put the data in the correct folder first.")
 
     training_data = extract_context_pairs(dataset, CONTEXT_SIZE)
     train_loader = DataLoader(training_data, batch_size=BATCH_SIZE, shuffle=True, collate_fn=custom_collate, num_workers=4, pin_memory=True)
@@ -74,8 +74,7 @@ if __name__ == "__main__":
     if os.path.exists(CACHE_GLOVE_PATH):
         emb_mat = torch.load(CACHE_GLOVE_PATH)
     else:
-        emb_mat = load_emb(w2i, GLOVE_PATH)
-        torch.save(emb_mat, CACHE_GLOVE_PATH)
+        print("The embedding file does not exist, please download and put the data in the correct folder first.")
     
     model.embed.weight.data = emb_mat
     model.fixed_embed.weight.data = emb_mat
