@@ -13,7 +13,7 @@ To run the code we need the following dependencies:
 
 ## Data
 
-The processed data can be downloaded [here](https://non-existing-url). If you want to check out how the data is created
+The processed data can be downloaded [here](https://drive.google.com/open?id=127hhMRGzijJ7PKHp4et79Yssa-zgscPs). If you want to check out how the data is created
  as well as the code for doing so, please see to the dev branch of this repo, there will be additional dependencies as well.
 
 ## Train Embeddings
