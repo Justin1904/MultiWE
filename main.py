@@ -7,7 +7,7 @@ import torch.nn as nn
 
 from Models import SkipGram
 from Trainer import EmbeddingTrainer, Logger
-from datautils import load_unsup_dataset, extract_context_pairs, avg_collapse, custom_collate, load_emb
+from datautils import extract_context_pairs, avg_collapse, custom_collate, load_emb
 from torch.utils.data import DataLoader
 from torch.optim import Adam
 from subprocess import check_call

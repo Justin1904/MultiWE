@@ -6,8 +6,9 @@ This is the repo for learning multimodal word embeddings from the CMU-MOSEI data
 
 To run the code we need the following dependencies:
 
- * PyTorch 1.1
- * 
+ * pytorch 1.1
+ * tqdm
+ * numpy
 
 
 ## Data
